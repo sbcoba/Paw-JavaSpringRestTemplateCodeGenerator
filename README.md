@@ -31,10 +31,6 @@ cake watch
 
 Download `Spring >= 3.0.x` at http://spring.io 
 
-```bash
-export CLASSPATH=.:commons-logging-1.1.3.jar:httpmime-4.3.6.jar:httpcore-4.3.3.jar:httpclient-4.3.6.jar:fluent-hc-4.3.6.jar && javac SendRequest.java && java SendRequest
-```
-
 ## License
 
 This Paw Extension is released under the [MIT License](LICENSE). Feel free to fork, and modify!
