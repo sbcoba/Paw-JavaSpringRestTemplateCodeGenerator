@@ -1,0 +1,62 @@
+import org.springframework.http.*;
+import org.springframework.web.client.*;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+
+public class RestTemplateSendRequest {
+
+  // {{{request.name}}} ({{{request.method}}} {{{url.fullpath}}})
+  public static void main(String[] args) {
+    RestOperations restTemplate = new RestTemplate();
+    HttpHeaders headers = new HttpHeaders();
+{{#headers.has_headers}}
+    // Add headers
+    {{#headers.header_list}}
+    headers.add("{{{header_name}}}", "{{{header_value}}}");
+    {{/headers.header_list}}
+{{/headers.has_headers}}
+{{! ----- }}
+{{#body.has_multipart_body}}
+    // Add body
+    MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
+{{#body.multipart_body}}
+    body.add("{{{name}}}", "{{{value}}}");
+{{/body.multipart_body}}
+    HttpEntity<MultiValueMap<String, String>> httpEntity =
+    new HttpEntity<MultiValueMap<String, String>>(body, headers);
+{{/body.has_multipart_body}}
+{{! ----- }}
+{{#body.has_url_encoded_body}}
+    MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
+{{#body.url_encoded_body}}
+    body.add("{{{name}}}", "{{{value}}}");
+{{/body.url_encoded_body}}
+    HttpEntity<MultiValueMap<String, String>> httpEntity =
+        new HttpEntity<MultiValueMap<String, String>>(body, headers);
+{{/body.has_url_encoded_body}}
+{{! ----- }}
+{{#body.has_raw_body}}
+    String body = "{{{body.raw_body}}}";
+    HttpEntity<String> httpEntity = new HttpEntity<String>(body, headers);
+{{/body.has_raw_body}}
+{{! ----- }}
+{{#body.has_long_body}}
+    String body = "set your body string";
+    HttpEntity<String> httpEntity = new HttpEntity<String>(body, headers);
+{{/body.has_long_body}}
+{{! ----- }}
+{{#body.has_json_body}}
+    headers.setContentType(MediaType.APPLICATION_JSON);
+    String body = "{{{body.json_body_object}}}";
+    HttpEntity<String> httpEntity = new HttpEntity<String>(body, headers);
+{{/body.has_json_body}}
+{{! ----- }}
+    // Call api
+    ResponseEntity<String> result = restTemplate.exchange(
+          "{{{url.fullpath}}}",
+          HttpMethod.{{{request.method}}},
+          httpEntity,
+          String.class);
+    System.out.println(result);
+  }
+}
