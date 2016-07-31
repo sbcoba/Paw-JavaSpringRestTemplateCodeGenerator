@@ -1,4 +1,6 @@
-<!--[![Build Status](https://travis-ci.org/luckymarmot/Paw-JavaSpringRestTemplateCodeGenerator.svg?branch=master)](https://travis-ci.org/luckymarmot/Paw-JavaSpringRestTemplateCodeGenerator)-->
+[![Build Status](https://travis-ci.org/sbcoba/Paw-JavaSpringRestTemplateCodeGenerator.svg?branch=master)](https://travis-ci.org/sbcoba/Paw-JavaSpringRestTemplateCodeGenerator)
+
+
 
 # Java + Spring RestTemplate Code Generator (Paw Extension)
 
